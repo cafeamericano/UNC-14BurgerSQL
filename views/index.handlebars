@@ -1,21 +1,30 @@
-<p>This is the index.handlebars file.</p>
+<div class='container-fluid'>
+    <div class='row'>
 
-{{#each datum}}
+        {{!-- Results --}}
+        <div class='col'>
+            {{#each datum}}
+            <h5>{{this.burger_name}}</h5>
+            <p>Devoured? {{this.devoured}}</p>
+            <button data-db-id='{{this.id}}' class="devourButton">Devour</button>
+            <button data-db-id='{{this.id}}' class="trashButton">Trash</button>
+            <hr>
+            {{/each}}
+        </div>
 
-<h5>{{this.burger_name}}</h5>
-<p>Devoured? {{this.devoured}}</p>
-<button data-db-id='{{this.id}}' class="devourButton">Devour</button>
-<hr>
+        {{!-- Add New Burger Form --}}
+        <div class='col'>
+            <form id='addBurgerForm'>
+                <div class="col-12">
+                    <label>Burger Name</label>
+                    <input type="text" class="form-control" id='burgerName' name='burgerName'>
+                </div>
+                <button type='submit' class='btn btn-primary'>Submit</button>
+            </form>
+        </div>
 
-{{/each}}
-
-<form id='addBurgerForm'>
-    <div class="col-12">
-        <label>Burger Name</label>
-        <input type="text" class="form-control" id='burgerName' name='burgerName'>
     </div>
-    <button type='submit' class='btn btn-primary'>Submit</button>
-</form>
+</div>
 
 {{!-- Capture New Burger --}}
 <script>
@@ -43,6 +52,22 @@
             data: {
                 id: $(this).attr('data-db-id'),
                 newdevouredstatus: true
+            }
+        }).then(function (response) {
+            console.log(response)
+        })
+        window.location.replace('/api/allburgers')
+    });
+</script>
+
+{{!-- Trash A Burger --}}
+<script>
+    $(document).on("click", ".trashButton", function () {
+        $.ajax({
+            url: '/api/deleteaburger',
+            method: 'DELETE',
+            data: {
+                id: $(this).attr('data-db-id'),
             }
         }).then(function (response) {
             console.log(response)

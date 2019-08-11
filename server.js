@@ -41,7 +41,7 @@ app.get('/api/allburgers', function (req, res) {
     query = `SELECT * FROM burgers;`
     connection.query(query, function (err, result) {
         console.log(result)
-        res.render('index', {datum: result})
+        res.render('index', { datum: result })
     });
 })
 
@@ -49,7 +49,7 @@ app.get('/api/isdevoured', function (req, res) {
     query = `SELECT * FROM burgers WHERE devoured=true;`
     connection.query(query, function (err, result) {
         console.log(result)
-        res.render('index', {datum: result})
+        res.render('index', { datum: result })
     });
 })
 
@@ -57,11 +57,11 @@ app.get('/api/isnotdevoured', function (req, res) {
     query = `SELECT * FROM burgers WHERE devoured=false;`
     connection.query(query, function (err, result) {
         console.log(result)
-        res.render('index', {datum: result})
+        res.render('index', { datum: result })
     });
 })
 
-//Post route
+//Add new burger
 app.post('/api/addnewburger', function (req, res) {
     query = `INSERT INTO burgers (burger_name, devoured) VALUES ('${req.body.burgerName}', false);`
     connection.query(query, function (err, result) {
@@ -70,13 +70,23 @@ app.post('/api/addnewburger', function (req, res) {
     });
 })
 
-//Post route
+//Change devoured status
 app.put('/api/changedevouredstatus', function (req, res) {
     console.log(query)
     query = `UPDATE burgers SET devoured = ${req.body.newdevouredstatus} WHERE id='${req.body.id}';`
     connection.query(query, function (err, result) {
         console.log(result)
         res.send('Burger devoured status updated.')
+    });
+})
+
+//Delete a burger
+app.delete('/api/deleteaburger', function (req, res) {
+    console.log(query)
+    query = `DELETE FROM burgers WHERE id='${req.body.id}';`
+    connection.query(query, function (err, result) {
+        console.log(result)
+        res.send('Burger deleted.')
     });
 })
 
