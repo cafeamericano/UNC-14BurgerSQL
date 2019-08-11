@@ -2,6 +2,32 @@
 
 {{#each datum}}
 
+<h5>{{this.burger_name}}</h5>
 <p>Devoured? {{this.devoured}}</p>
 
 {{/each}}
+
+<form id='addBurgerForm'>
+    <div class="col-12">
+        <label>Burger Name</label>
+        <input type="text" class="form-control" id='burgerName' name='burgerName'>
+    </div>
+    <button type='submit' class='btn btn-primary'>Submit</button>
+</form>
+
+<script>
+    $(document).on("submit", "#addBurgerForm", function () {
+        event.preventDefault()
+        $.ajax({
+            url: '/api/addnewburger',
+            method: 'POST',
+            data: {
+                burgerName: $('#burgerName').val().trim()
+            }
+        }).then(function (response) {
+            console.log(response)
+        })
+        window.location.replace('/api/allburgers')
+    });
+
+</script>

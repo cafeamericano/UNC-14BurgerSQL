@@ -29,17 +29,44 @@ var connection = mysql.createConnection({
     database: "burgers_db"
 });
 
-//Routes
+//Home route
 
 app.get('/', function (req, res) {
     res.render('index')
 })
 
-app.get('/api', function (req, res) {
+//Get routes
+
+app.get('/api/allburgers', function (req, res) {
     query = `SELECT * FROM burgers;`
     connection.query(query, function (err, result) {
         console.log(result)
         res.render('index', {datum: result})
+    });
+})
+
+app.get('/api/isdevoured', function (req, res) {
+    query = `SELECT * FROM burgers WHERE devoured=true;`
+    connection.query(query, function (err, result) {
+        console.log(result)
+        res.render('index', {datum: result})
+    });
+})
+
+app.get('/api/isnotdevoured', function (req, res) {
+    query = `SELECT * FROM burgers WHERE devoured=false;`
+    connection.query(query, function (err, result) {
+        console.log(result)
+        res.render('index', {datum: result})
+    });
+})
+
+//Post route
+app.post('/api/addnewburger', function (req, res) {
+    query = `INSERT INTO burgers (burger_name, devoured) VALUES ('${req.body.burgerName}', false);`
+    connection.query(query, function (err, result) {
+        console.log(result)
+        res.send('Burger added.')
     });
 })
 
