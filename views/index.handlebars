@@ -4,6 +4,8 @@
 
 <h5>{{this.burger_name}}</h5>
 <p>Devoured? {{this.devoured}}</p>
+<button data-db-id='{{this.id}}' class="devourButton">Devour</button>
+<hr>
 
 {{/each}}
 
@@ -15,6 +17,7 @@
     <button type='submit' class='btn btn-primary'>Submit</button>
 </form>
 
+{{!-- Capture New Burger --}}
 <script>
     $(document).on("submit", "#addBurgerForm", function () {
         event.preventDefault()
@@ -29,5 +32,21 @@
         })
         window.location.replace('/api/allburgers')
     });
+</script>
 
+{{!-- Devour A Burger --}}
+<script>
+    $(document).on("click", ".devourButton", function () {
+        $.ajax({
+            url: '/api/changedevouredstatus',
+            method: 'PUT',
+            data: {
+                id: $(this).attr('data-db-id'),
+                newdevouredstatus: true
+            }
+        }).then(function (response) {
+            console.log(response)
+        })
+        window.location.replace('/api/allburgers')
+    });
 </script>

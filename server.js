@@ -70,6 +70,16 @@ app.post('/api/addnewburger', function (req, res) {
     });
 })
 
+//Post route
+app.put('/api/changedevouredstatus', function (req, res) {
+    console.log(query)
+    query = `UPDATE burgers SET devoured = ${req.body.newdevouredstatus} WHERE id='${req.body.id}';`
+    connection.query(query, function (err, result) {
+        console.log(result)
+        res.send('Burger devoured status updated.')
+    });
+})
+
 //====================================================================
 
 //Begin listening for requests
