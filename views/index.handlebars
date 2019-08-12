@@ -15,7 +15,7 @@
 
         {{!-- Not Yet Eaten --}}
         <div class='col text-center'>
-            <h3>Not Yet Eaten</h3>
+            <h3 class="text-danger">Not Yet Eaten</h3>
             {{#each datum}}
             {{#if devoured}}
             {{else}}
@@ -23,7 +23,7 @@
                 <div class='burgerWrapper'>
 
                     <div class="card-title">
-                        <h5>{{this.burger_name}}</h5>
+                        <h5>#{{this.id}} {{this.burger_name}}</h5>
                     </div>
 
                     <div class="card-body burgerCard" style='height: 70px'>
@@ -49,13 +49,14 @@
         </div>
 
         {{!-- Add New Burger Form --}}
-        <div class='col text-center'>
-            <h3>Make a Burger</h3>
+        <div class='col text-center' style='border-left: 5px rgb(197, 44, 44) solid; border-right: 5px rgb(197, 44, 44) solid'>
+            <h3 class="text-danger">Make a Burger</h3>
             <div class="card mt-3 mb-3 p-3">
                 <form id='addBurgerForm' class="text-center">
                     <div class="col-12">
-                        <label>Burger Name</label>
-                        <input type="text" class="form-control" id='burgerName' name='burgerName'>
+                        <h3>Create-A-Burger</h3>
+                        <br>
+                        <input type="text" class="form-control" id='burgerName' name='burgerName' placeholder="New burger name">
                     </div>
                     <br>
                     <button type='submit' class='btn' style="font-size: 50px">🍔</button>
@@ -65,14 +66,14 @@
 
         {{!-- Already Eaten --}}
         <div class='col text-center'>
-            <h3>Eaten</h3>
+            <h3 class='text-danger'>Eaten</h3>
             {{#each datum}}
             {{#if devoured}}
             <div class='card mb-3'>
                 <div class='burgerWrapper'>
 
                     <div class="card-title">
-                        <h5>{{this.burger_name}}</h5>
+                        <h5>#{{this.id}} {{this.burger_name}}</h5>
                     </div>
 
                     <div class="card-body burgerCard" style='height: 70px'>
