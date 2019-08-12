@@ -29,6 +29,13 @@ router.post('/orm/addnewburger', function (req, res) {
     });
 })
 
+router.put('/orm/changedevouredstatus', function (req, res) {
+    console.log(req.body)
+    burger.update(req.body.id, req.body.newdevouredstatus, function (data) {
+        res.json(data)
+    });
+})
+
 router.delete('/orm/deleteaburger', function (req, res) {
     console.log(req.body.id)
     burger.delete(req.body.id, function (data) {

@@ -21,6 +21,11 @@ var burger = {
             desiredAction(res);
         });
     },
+    update: function (id, newdevouredstatus, desiredAction) {
+        orm.update("burgers", 'devoured', newdevouredstatus, 'id', id, function (res) {
+            desiredAction(res);
+        });
+    },
     delete: function (id, desiredAction) {
         orm.delete("burgers", 'id', id, function (res) {
             desiredAction(res);

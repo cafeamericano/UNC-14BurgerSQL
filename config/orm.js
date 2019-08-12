@@ -28,6 +28,15 @@ var orm = {
             desiredAction(result);
         });
     },
+    update: function (tableName, setColumn, setValue, findColumn, findCriteria, desiredAction) {
+        var queryString = "UPDATE " + tableName + ' SET ' + setColumn + '=' + setValue + " WHERE " + findColumn + "=" + findCriteria + ";";
+        connection.query(queryString, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            desiredAction(result);
+        });
+    },
     delete: function(tableName, column, criteria, desiredAction) {
         var queryString = "DELETE FROM  " + tableName + ' WHERE ' + column + '=' + criteria + ";";
         connection.query(queryString, function (err, result) {
