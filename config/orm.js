@@ -18,6 +18,15 @@ var orm = {
             }
             desiredAction(result);
         });
+    },
+    addNew: function(tableName, burgerName, desiredAction) {
+        var queryString = "INSERT INTO " + tableName + ' (burger_name, devoured) VALUES ("' + burgerName + '", false);';
+        connection.query(queryString, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            desiredAction(result);
+        });
     }
 };
 

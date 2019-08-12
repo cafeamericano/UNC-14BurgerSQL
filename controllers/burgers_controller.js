@@ -18,10 +18,17 @@ router.get("/orm/isdevoured", function (req, res) {
 });
 
 router.get("/orm/isnotdevoured", function (req, res) {
-    burger.all(function (data) {
+    burger.findNotDevoured(function (data) {
         res.json(data)
     });
 });
+
+router.post('/orm/addnewburger', function (req, res) {
+    console.log(req.body.burgerName)
+    burger.addNew(req.body.burgerName,function (data) {
+        res.json(data)
+    });
+})
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
