@@ -20,4 +20,11 @@ connection.connect(function (err) {
     console.log("connected as id " + connection.threadId);
 });
 
+var sql = `CREATE TABLE burgers (id INT NOT NULL AUTO_INCREMENT, burger_name TEXT, devoured BOOL, PRIMARY KEY(id));`
+console.log(sql)
+connection.query(sql, function (err) {
+    if (err) throw err;
+    res.send('table created')
+});
+
 module.exports = connection; //Export for usage by ORM
