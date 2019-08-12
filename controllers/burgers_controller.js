@@ -5,11 +5,27 @@ var router = express.Router()
 
 //GET ROUTES ####################################################################################
 
-router.get("/test", function (req, res) {
+router.get("/orm/allburgers", function (req, res) {
     burger.all(function (data) {
         res.json(data)
     });
 });
+
+router.get("/orm/isdevoured", function (req, res) {
+    burger.findDevoured(function (data) {
+        res.json(data)
+    });
+});
+
+router.get("/orm/isnotdevoured", function (req, res) {
+    burger.all(function (data) {
+        res.json(data)
+    });
+});
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 router.get('/', function (req, res) {
     res.redirect('/api/allburgers')

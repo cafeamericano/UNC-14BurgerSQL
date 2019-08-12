@@ -9,6 +9,15 @@ var orm = {
             }
             desiredAction(result);
         });
+    },
+    find: function (tableName, column, criteria, desiredAction) {
+        var queryString = "SELECT * FROM " + tableName + ' WHERE ' + column + '=' + criteria + ";";
+        connection.query(queryString, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            desiredAction(result);
+        });
     }
 };
 
