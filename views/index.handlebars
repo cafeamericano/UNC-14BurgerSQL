@@ -1,31 +1,104 @@
-<div class='container-fluid'>
+<style>
+    .burgerCard {
+        background-image: url('/assets/img/burger.jpg');
+        background-size: cover;
+    }
+
+    .burgerWrapper {
+        background: rgba(255, 255, 255, 0.7);
+        padding: 10px
+    }
+</style>
+
+<div class='container'>
     <div class='row'>
 
-        {{!-- Results --}}
-        <div class='col'>
+        {{!-- Not Yet Eaten --}}
+        <div class='col text-center'>
+            <h3>Not Yet Eaten</h3>
             {{#each datum}}
-            <h5>{{this.burger_name}}</h5>
-            <p>Devoured? {{this.devoured}}</p>
-            <button data-db-id='{{this.id}}' class="devourButton">Devour</button>
-            <button data-db-id='{{this.id}}' class="trashButton">Trash</button>
-            <hr>
+            {{#if devoured}}
+            {{else}}
+            <div class='card mb-3'>
+                <div class='burgerWrapper'>
+
+                    <div class="card-title">
+                        <h5>{{this.burger_name}}</h5>
+                    </div>
+
+                    <div class="card-body burgerCard" style='height: 70px'>
+                    </div>
+
+                    <div class='card-footer'>
+                        <div class="row">
+                            <div class="col-7 text-left">
+                                <button data-db-id='{{this.id}}' data-is-devoured={{this.devoured}}
+                                    class="btn devourButton">🤤
+                                    Eat</button>
+                            </div>
+                            <div class="col-5 text-right">
+                                <button data-db-id='{{this.id}}' class="btn trashButton">🗑 Trash</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {{/if}}
             {{/each}}
         </div>
 
         {{!-- Add New Burger Form --}}
-        <div class='col'>
-            <form id='addBurgerForm'>
-                <div class="col-12">
-                    <label>Burger Name</label>
-                    <input type="text" class="form-control" id='burgerName' name='burgerName'>
+        <div class='col text-center'>
+            <h3>Make a Burger</h3>
+            <div class="card mt-3 mb-3 p-3">
+                <form id='addBurgerForm' class="text-center">
+                    <div class="col-12">
+                        <label>Burger Name</label>
+                        <input type="text" class="form-control" id='burgerName' name='burgerName'>
+                    </div>
+                    <br>
+                    <button type='submit' class='btn' style="font-size: 50px">🍔</button>
+                </form>
+            </div>
+        </div>
+
+        {{!-- Already Eaten --}}
+        <div class='col text-center'>
+            <h3>Eaten</h3>
+            {{#each datum}}
+            {{#if devoured}}
+            <div class='card mb-3'>
+                <div class='burgerWrapper'>
+
+                    <div class="card-title">
+                        <h5>{{this.burger_name}}</h5>
+                    </div>
+
+                    <div class="card-body burgerCard" style='height: 70px'>
+                    </div>
+
+                    <div class='card-footer'>
+                        <div class="row">
+                            <div class="col-7 text-left">
+                                <button data-db-id='{{this.id}}' data-is-devoured={{this.devoured}}
+                                    class="btn devourButton">🤮
+                                    Regurgitate</button>
+                            </div>
+                            <div class="col-5 text-right">
+                                <button data-db-id='{{this.id}}' class="btn trashButton">🗑 Trash</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <button type='submit' class='btn btn-primary'>Submit</button>
-            </form>
+            </div>
+            {{/if}}
+            {{/each}}
         </div>
 
     </div>
 </div>
-
 {{!-- Capture New Burger --}}
 <script>
     $(document).on("submit", "#addBurgerForm", function () {
@@ -46,12 +119,20 @@
 {{!-- Devour A Burger --}}
 <script>
     $(document).on("click", ".devourButton", function () {
+        event.preventDefault()
+        let currentStatus = $(this).attr('data-is-devoured')
+        let newStatus;
+        if (currentStatus === '1') {
+            newStatus = false
+        } else if (currentStatus === '0') {
+            newStatus = true
+        }
         $.ajax({
             url: '/api/changedevouredstatus',
             method: 'PUT',
             data: {
                 id: $(this).attr('data-db-id'),
-                newdevouredstatus: true
+                newdevouredstatus: newStatus
             }
         }).then(function (response) {
             console.log(response)

@@ -35,6 +35,14 @@
     {{!-- Animate CSS --}}
     {{!-- <link rel="stylesheet" type="text/css" href='animate.css' /> --}}
 
+    <style>
+        body {
+            background-image: url('/assets/img/bg.jpg');
+            background-size: cover;
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,11 +51,11 @@
     <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
             <div class="bg-dark p-4">
-                <h5 class="text-white h4">Collapsed content</h5>
-                <span class="text-muted">Toggleable via the navbar brand.</span>
+                <h5 class="text-white h4">Eat Some Burgers!</h5>
+                <span class="text-muted">Create burgers, eat burgers, or return some burgers to the table.</span>
             </div>
         </div>
-        <nav class="navbar navbar-dark bg-primary">
+        <nav class="navbar navbar-dark bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -57,6 +65,7 @@
     </div>
 
     {{!-- Body --}}
+    <br>
     {{{body}}}
 
 </body>
