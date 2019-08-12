@@ -24,7 +24,6 @@ var sql = `CREATE TABLE burgers (id INT NOT NULL AUTO_INCREMENT, burger_name TEX
 console.log(sql)
 connection.query(sql, function (err) {
     if (err) throw err;
-    res.send('table created')
 });
 
 module.exports = connection; //Export for usage by ORM
