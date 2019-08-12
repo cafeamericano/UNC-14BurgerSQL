@@ -24,8 +24,14 @@ router.get("/orm/isnotdevoured", function (req, res) {
 });
 
 router.post('/orm/addnewburger', function (req, res) {
-    console.log(req.body.burgerName)
-    burger.addNew(req.body.burgerName,function (data) {
+    burger.addNew(req.body.burgerName, function (data) {
+        res.json(data)
+    });
+})
+
+router.delete('/orm/deleteaburger', function (req, res) {
+    console.log(req.body.id)
+    burger.delete(req.body.id, function (data) {
         res.json(data)
     });
 })

@@ -20,6 +20,11 @@ var burger = {
         orm.addNew("burgers", burgerName, function (res) {
             desiredAction(res);
         });
+    },
+    delete: function (id, desiredAction) {
+        orm.delete("burgers", 'id', id, function (res) {
+            desiredAction(res);
+        });
     }
 }
 

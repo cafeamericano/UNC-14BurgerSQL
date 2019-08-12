@@ -27,6 +27,15 @@ var orm = {
             }
             desiredAction(result);
         });
+    },
+    delete: function(tableName, column, criteria, desiredAction) {
+        var queryString = "DELETE FROM  " + tableName + ' WHERE ' + column + '=' + criteria + ";";
+        connection.query(queryString, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            desiredAction(result);
+        });
     }
 };
 
