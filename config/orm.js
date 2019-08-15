@@ -2,8 +2,8 @@ var connection = require("./connection.js");
 
 var orm = {
     all: function (tableName, desiredAction) {
-        var queryString = "SELECT * FROM " + tableName + ";";
-        connection.query(queryString, function (err, result) {
+        var queryString = "SELECT * FROM ??;"
+        connection.query(queryString, [tableName], function (err, result) {
             if (err) {
                 throw err;
             }
@@ -11,8 +11,8 @@ var orm = {
         });
     },
     find: function (tableName, column, criteria, desiredAction) {
-        var queryString = "SELECT * FROM " + tableName + ' WHERE ' + column + '=' + criteria + ";";
-        connection.query(queryString, function (err, result) {
+        var queryString = "SELECT * FROM ?? WHERE ?? = ?;"
+        connection.query(queryString, [tableName, column, criteria], function (err, result) {
             if (err) {
                 throw err;
             }
@@ -20,8 +20,8 @@ var orm = {
         });
     },
     addNew: function(tableName, burgerName, desiredAction) {
-        var queryString = "INSERT INTO " + tableName + ' (burger_name, devoured) VALUES ("' + burgerName + '", false);';
-        connection.query(queryString, function (err, result) {
+        var queryString = "INSERT INTO ?? (burger_name, devoured) VALUES (?, false);";
+        connection.query(queryString, [tableName, burgerName], function (err, result) {
             if (err) {
                 throw err;
             }
@@ -29,17 +29,28 @@ var orm = {
         });
     },
     update: function (tableName, setColumn, setValue, findColumn, findCriteria, desiredAction) {
-        var queryString = "UPDATE " + tableName + ' SET ' + setColumn + '=' + setValue + " WHERE " + findColumn + "=" + findCriteria + ";";
-        connection.query(queryString, function (err, result) {
+        
+        //If set value is boolean, format data type as such
+        if ( setValue === 'true'){
+            setValue = true;
+        }
+        if ( setValue === 'false'){
+            setValue = false
+        }
+
+        //Perform the query
+        var queryString = "UPDATE ?? SET ?? = ? WHERE ?? = ?;";
+        connection.query(queryString, [tableName, setColumn, setValue, findColumn, findCriteria], function (err, result) {
             if (err) {
                 throw err;
             }
             desiredAction(result);
         });
+
     },
     delete: function(tableName, column, criteria, desiredAction) {
-        var queryString = "DELETE FROM  " + tableName + ' WHERE ' + column + '=' + criteria + ";";
-        connection.query(queryString, function (err, result) {
+        var queryString = "DELETE FROM ?? WHERE ?? = ?;";
+        connection.query(queryString, [tableName, column, criteria], function (err, result) {
             if (err) {
                 throw err;
             }
