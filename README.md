@@ -1,5 +1,12 @@
 # **UNC Assignment #12 - Burger SQL**
-> Created by Matthew Farmer
+
+## Credits
+
+©2019 Matthew Farmer
+
+## Application Link
+
+http://unc14burgersql.herokuapp.com/api/allburgers
 
 ## About
 'Burger SQL' is a simple application that allows the user to create, consume, and throw away virtual burgers. This app stores all created burgers and their properties in a MySQL database.
